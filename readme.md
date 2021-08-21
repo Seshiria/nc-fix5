@@ -10,7 +10,7 @@ Parsing response failed.
 Show detailed response
 ````
 
-![webstop](\img\webstop.png)
+![webstop](/img/webstop.png)
 
 或者命令行工具卡在这个位置
 
@@ -20,7 +20,7 @@ Show detailed response
 
 
 
-![shellstop](\img\shellstop.png)
+![shellstop](/img/shellstop.png)
 
 就可以使用这个工具进行修复。
 
@@ -48,9 +48,9 @@ sh main.sh
 
 等命令行执行完毕无报错后，可以**重新**运行nextcloud的更新程序，会从第五步继续开始
 
-![webfix](\img\webfix.png)
+![webfix](/img/webfix.png)
 
-![webfix](\img\shelfix.png)
+![webfix](/img/shelfix.png)
 
 ## 问题原因和修复原理
 
