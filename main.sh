@@ -1,6 +1,6 @@
 echo "修复nextcloud更新卡在步骤5的小工具"
 echo "使用本工具前请先手动更新一次nextcloud"
-echo "指定路径请直接在脚本后跟路径位置"
+echo "指定路径请配置环境变量"export WPATH=/""
 WPATH=${WPATH:-$(pwd)}
 case $(find ${WPATH} -type f -name .step | wc -l) in
 0)
