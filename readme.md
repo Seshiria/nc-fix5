@@ -45,6 +45,13 @@ sh main.sh
 export WPATH=/
 sh main.sh
 ````
+**如果你审查了脚本确定符合你想要的效果可以直接执行**
+
+````shell
+ wget -O - https://raw.githubusercontent.com/Seshiria/nc-fix5/master/main.sh |sh
+ #或者
+ curl https://raw.githubusercontent.com/Seshiria/nc-fix5/master/main.sh |sh
+ ````
 
 等命令行执行完毕无报错后，可以**重新**运行nextcloud的更新程序，会从第五步继续开始
 
