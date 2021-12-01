@@ -2,10 +2,12 @@ echo "修复nextcloud更新卡在步骤5的小工具"
 echo "使用本工具前请先手动更新一次nextcloud"
 echo "指定路径请配置环境变量"export WPATH=/""
 WPATH=${WPATH:-$(pwd)}
+echo "当前搜寻路径为：${WPATH}"
+echo "开始查找更新"
 case $(find ${WPATH} -type f -name .step | wc -l) in
 0)
     echo "找不到对应的更新文件！"
-    echo "当前操作的目录为：${WPATH}"
+    echo "请确认设置了正确的操作目录，当前操作目录为：${WPATH}"
     exit 1
     ;;
 1)
@@ -30,6 +32,7 @@ else
     cat ${STEOFILE}
     dirname ${STEOFILE}
 fi
+echo "验证更新文件"
 UPATH=$(dirname ${STEOFILE})
 UFILE=${UPATH}/downloads/*.zip
 case `ls ${UFILE}|wc -l` in
