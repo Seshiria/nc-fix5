@@ -1,10 +1,11 @@
+#!/bin/sh
 echo "修复nextcloud更新卡在步骤5的小工具"
 echo "使用本工具前请先手动更新一次nextcloud"
 echo "指定路径请配置环境变量"export WPATH=/""
 WPATH=${WPATH:-$(pwd)}
 echo "当前搜寻路径为：${WPATH}"
 echo "开始查找更新"
-case $(find ${WPATH} -type f -name .step | wc -l) in
+case $(find "${WPATH}" -type f -name .step | wc -l) in
 0)
     echo "找不到对应的更新文件！"
     echo "请确认设置了正确的操作目录，当前操作目录为：${WPATH}"
@@ -17,32 +18,32 @@ case $(find ${WPATH} -type f -name .step | wc -l) in
     exit 1
     ;;
 esac
-STEOFILE=$(find ${WPATH} -type f -name .step)
-if grep \"step\"\:5 ${STEOFILE} > /dev/null ; then
-    if grep \"state\":\"start\" ${STEOFILE} > /dev/null ; then
+STEOFILE=$(find "${WPATH}" -type f -name .step)
+if grep \"step\"\:5 "${STEOFILE}" > /dev/null ; then
+    if grep \"state\":\"start\" "${STEOFILE}" > /dev/null ; then
         echo "step文件检查通过"
     else
         echo "当前nextcloud更新并没有开始运行或者已经运行完毕。下面为调试信息"
-        cat ${STEOFILE}
-        dirname ${STEOFILE}
+        cat "${STEOFILE}"
+        dirname "${STEOFILE}"
         exit 1
     fi
 else
     echo "当前nextcloud更新并不是在第五阶段，无法修复"
-    cat ${STEOFILE}
-    dirname ${STEOFILE}
+    cat "${STEOFILE}"
+    dirname "${STEOFILE}"
 fi
 echo "验证更新文件"
-UPATH=$(dirname ${STEOFILE})
+UPATH=$(dirname "${STEOFILE}")
 UFILE=${UPATH}/downloads/*.zip
-case `ls ${UFILE}|wc -l` in
+case $(ls "${UFILE}"|wc -l) in
 1)
-    LOACL_SHA=`sha512sum ${UFILE}|awk -F "\ " '{print $1}'`
-    _NAME=`basename ${UFILE}`
-    ONLINME_SHA=`wget -q -O- https://download.nextcloud.com/server/releases/${_NAME}.sha512|awk -F "\ " '{print $1}'`
+    LOACL_SHA=$(sha512sum "${UFILE}"|awk -F "\ " '{print $1}')
+    _NAME=$(basename "${UFILE}")
+    ONLINME_SHA=$(wget -q -O- https://download.nextcloud.com/server/releases/"${_NAME}".sha512|awk -F "\ " '{print $1}')
     if [ "$ONLINME_SHA" = "$LOACL_SHA" ]; then
         echo "哈希检查通过，正在写入信息"
-        echo -e "{\"state\":\"end\",\"step\":5}" > ${STEOFILE}
+        echo -e "{\"state\":\"end\",\"step\":5}" > "${STEOFILE}"
         echo "写入完成，请重新执行nextcloud的更新操作，现在nextcloud更新会从第五步继续"
         exit 0
     else
@@ -58,7 +59,7 @@ case `ls ${UFILE}|wc -l` in
 ;;
 *)
     echo "下载目录错误,不存在更新文件或存在多个更新文件。"
-    ls ${UFILE}
+    ls "${UFILE}"
 esac
 
 
