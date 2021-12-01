@@ -40,7 +40,14 @@ case $(ls "${UFILE}"|wc -l) in
 1)
     LOACL_SHA=$(sha512sum "${UFILE}"|awk -F "\ " '{print $1}')
     _NAME=$(basename "${UFILE}")
-    ONLINME_SHA=$(wget -q -O- https://download.nextcloud.com/server/releases/"${_NAME}".sha512|awk -F "\ " '{print $1}')
+    if [ "$(which wget)" ]; then
+        ONLINME_SHA=$(wget -q -O- https://download.nextcloud.com/server/releases/"${_NAME}".sha512|awk -F "\ " '{print $1}')
+    elif [ "$(which curl)" ]; then
+        ONLINME_SHA=$(curl -s https://download.nextcloud.com/server/releases/"${_NAME}".sha512|awk -F "\ " '{print $1}')
+    else
+        echo "系统上没有wget或者curl！"
+        exit 1
+    fi
     if [ "$ONLINME_SHA" = "$LOACL_SHA" ]; then
         echo "哈希检查通过，正在写入信息"
         echo -e "{\"state\":\"end\",\"step\":5}" > "${STEOFILE}"
