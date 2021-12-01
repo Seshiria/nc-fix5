@@ -5,7 +5,8 @@ echo "指定路径请配置环境变量"export WPATH=/""
 WPATH=${WPATH:-$(pwd)}
 echo "当前搜寻路径为：${WPATH}"
 echo "开始查找更新"
-case $(find "${WPATH}" -type f -name .step | wc -l) in
+STEOFILE=$(find "${WPATH}" -type f -name .step)
+case $(echo "${STEOFILE}" | wc -l) in
 0)
     echo "找不到对应的更新文件！"
     echo "请确认设置了正确的操作目录，当前操作目录为：${WPATH}"
@@ -18,7 +19,6 @@ case $(find "${WPATH}" -type f -name .step | wc -l) in
     exit 1
     ;;
 esac
-STEOFILE=$(find "${WPATH}" -type f -name .step)
 if grep \"step\"\:5 "${STEOFILE}" > /dev/null ; then
     if grep \"state\":\"start\" "${STEOFILE}" > /dev/null ; then
         echo "step文件检查通过"
