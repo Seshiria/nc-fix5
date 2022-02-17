@@ -36,7 +36,7 @@ fi
 echo "验证更新文件"
 UPATH=$(dirname "${STEOFILE}")
 UFILE=${UPATH}/downloads/*.zip
-case $(ls "${UFILE}"|wc -l) in
+case $(ls ${UFILE}|wc -l) in
 1)
     LOACL_SHA=$(sha512sum "${UFILE}"|awk -F "\ " '{print $1}')
     _NAME=$(basename "${UFILE}")
