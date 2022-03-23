@@ -38,8 +38,8 @@ UPATH=$(dirname "${STEOFILE}")
 UFILE=${UPATH}/downloads/*.zip
 case $(ls ${UFILE}|wc -l) in
 1)
-    LOACL_SHA=$(sha512sum "${UFILE}"|awk -F "\ " '{print $1}')
-    _NAME=$(basename "${UFILE}")
+    LOACL_SHA=$(sha512sum ${UFILE}|awk -F "\ " '{print $1}')
+    _NAME=$(basename ${UFILE})
     if [ "$(which wget)" ]; then
         ONLINME_SHA=$(wget -q -O- https://download.nextcloud.com/server/releases/"${_NAME}".sha512|awk -F "\ " '{print $1}')
     elif [ "$(which curl)" ]; then
