@@ -41,9 +41,9 @@ case $(ls ${UFILE}|wc -l) in
     LOACL_SHA=$(sha512sum ${UFILE}|awk -F "\ " '{print $1}')
     _NAME=$(basename ${UFILE})
     if [ "$(which wget)" ]; then
-        ONLINME_SHA=$(wget -q -O- https://download.nextcloud.com/server/releases/"${_NAME}".sha512|awk -F "\ " '{print $1}')
+        ONLINME_SHA=$(wget -q -O- https://download.nextcloud.com/server/releases/"${_NAME}".sha512|grep zip|awk -F "\ " '{print $1}')
     elif [ "$(which curl)" ]; then
-        ONLINME_SHA=$(curl -s https://download.nextcloud.com/server/releases/"${_NAME}".sha512|awk -F "\ " '{print $1}')
+        ONLINME_SHA=$(curl -s https://download.nextcloud.com/server/releases/"${_NAME}".sha512|grep zip|awk -F "\ " '{print $1}')
     else
         echo "系统上没有wget或者curl！"
         exit 1
